@@ -1,0 +1,14 @@
+*~
+*.log
+*.synctex.gz
+*.backup
+*.aux
+*.kilepr
+*.dvi
+*.log
+*.fls
+*.fdb_latexmk
+*.toc
+*.idx
+*.ilg
+*.out

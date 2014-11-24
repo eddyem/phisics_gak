@@ -1,0 +1,6 @@
+#!/bin/sh
+ext=`ext $1`
+name=`echo $1|sed "s/.$ext//"`
+convert $1 $name.eps
+convert $1 $name.jpg
+rm $1

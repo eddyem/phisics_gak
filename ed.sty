@@ -1,0 +1,760 @@
+\usepackage[koi8-r]{inputenc}	% Классическая кодировка
+\usepackage[russian]{babel}	% Правила разбиения слов
+%\usepackage{floatflt}		% Плавающие картинки и таблицы
+\usepackage{wrapfig}		% Обтекаемые объекты
+\usepackage{multicol}		% Переключение между много- и одноколоночным режимами внутри страницы
+\usepackage{cite}		% Красивое оформление цитат
+\usepackage{xspace} % опциональный пробел в конце команды
+\usepackage{ifpdf}		% проверка pdflatex/latex
+%\usepackage[warn]{mathtext}	% Русский в математических формулах
+\ifpdf
+	\usepackage[pdftex]{graphicx}
+	\usepackage{cmap}		% Правильная кодировка в pdf
+	\ExecuteOptions{pdftex}
+%	\DeclareGraphicsExtensions{.eps,.png,.jpg,.pdf}
+%	\DeclareGraphicsRule{.eps}{jpg}{.bb}{`convert #1 jpg:-}
+\else
+	\usepackage[dvips]{graphicx}	% Картинки
+%	\DeclareGraphicsExtensions{.eps,.jpg}
+%	\DeclareGraphicsRule{.jpg}{eps}{.bb}{`convert #1 eps:-}
+\fi
+\usepackage{xcolor}		% Цветовыделение
+\usepackage{longtable}		% Длинные таблицы
+\usepackage[intlimits]{amsmath}	% Мат. команды
+\usepackage{amsfonts}		% Шрифты
+\usepackage{amssymb}		% Спец. символы
+\usepackage{bm} % bold math
+\usepackage{mathtools} % usefull math definitions
+\usepackage{wasysym}		% Для астрономических символов типа знаков зодиака
+\usepackage{array}		% позволяет m{}, b{}, >{}, <{} и !{}
+
+\def\daterussian{% fix for iюня and iюля
+  \def\today{\number\day~\ifcase\month\or
+   \cyrya\cyrn\cyrv\cyra\cyrr\cyrya\or
+   \cyrf\cyre\cyrv\cyrr\cyra\cyrl\cyrya\or
+   \cyrm\cyra\cyrr\cyrt\cyra\or
+   \cyra\cyrp\cyrr\cyre\cyrl\cyrya\or
+   \cyrm\cyra\cyrya\or
+   \cyri\cyryu\cyrn\cyrya\or
+   \cyri\cyryu\cyrl\cyrya\or
+   \cyra\cyrv\cyrg\cyru\cyrs\cyrt\cyra\or
+   \cyrs\cyre\cyrn\cyrt\cyrya\cyrb\cyrr\cyrya\or
+   \cyro\cyrk\cyrt\cyrya\cyrb\cyrr\cyrya\or
+   \cyrn\cyro\cyrya\cyrb\cyrr\cyrya\or
+   \cyrd\cyre\cyrk\cyra\cyrb\cyrr\cyrya\fi
+   \space \number\year~\cyrg.}}
+
+
+
+\numberwithin{equation}{section}% Номер формулы в виде (2.3)
+\pagestyle{headings}		% Колонтитулы
+%\batchmode			% Компилим без вопросов
+\textwidth=17.5cm
+\oddsidemargin=-.3cm
+\evensidemargin=-1.2cm
+\topmargin=-1cm
+\textheight=24cm
+%\emergencystretch=10pt
+%\sloppy			% Наплевать на пере- или недополнение боксов
+
+\newcommand{\thisyear}{\number\year}	% Удобное сокращение для текущего года
+\newcommand{\page}[1]{\c@page=#1}	% Принудительно сменить номер страницы
+
+\newsavebox{\hght}\savebox{\hght}{\strut}\newlength{\kegle}
+\setlength{\kegle}{\ht\hght}		% Высота шрифта (для переменных размеров)
+
+% Плавающие объекты 1 - где плавать (l,r,o,i; если буквы большие - не обязательно
+% 	втискивать в первый же абзац; 2 - объект
+\newsavebox{\myfloat}
+\newlength{\myflt}
+\newcommand{\float}[2]{
+\sbox{\myfloat}{#2}
+\setlength{\myflt}{\wd\myfloat}
+\begin{wrapfigure}{#1}{\myflt}
+\vspace*{-\baselineskip}
+#2%\usebox{\myfloat}
+\vspace*{-\baselineskip}
+\end{wrapfigure}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%   Большая буква в начале абзаца       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newfont{\initial}{wcmr17 at 48pt}
+\newcommand{\frstltr}[1]{
+    \newbox{\litera}
+    \savebox{\litera}{\hbox{\initial #1}}
+    \vspace*{.2\ht\litera}\par\noindent
+    \begin{wrapfigure}{l}{.8\wd\litera}
+    \vbox to .05\ht\litera{\vss\usebox{\litera}\vspace*{-.2\ht\litera}}
+    \vspace*{-.2\ht\litera}
+    \end{wrapfigure}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%               Счетчики                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\thechapter}{\Roman{chapter}}
+\newcounter{sect}[section]%[chapter]
+\newcounter{subsect}[sect]
+\newcounter{subsubsect}[subsect]
+\renewcommand{\thesect}{\arabic{sect}.}
+\renewcommand{\thesubsect}{\thesect\arabic{subsect}.}
+\renewcommand{\thesubsubsect}{\thesubsect\arabic{subsubsect}.}
+\newcounter{myitem}[subsect]
+\newcounter{lst}[myitem]
+\newcounter{sblst}[lst]
+\newcounter{sbitem}[lst]
+\newcounter{sub}[lst]
+\renewcommand{\thesbitem}{\thelst.\arabic{sbitem}.}
+\newcommand{\minput}[1]{\input{#1}}
+\newcounter{zadacha}[section]
+\renewcommand{\thezadacha}{\arabic{zadacha}}
+\renewcommand{\thesub}{\asbuk{sub})}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%       Тип текста        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\ж}{\bf}
+\newcommand{\т}{\tt}
+\newcommand{\н}{\rmfamily\mdseries\upshape}
+\newcommand{\к}{\it}
+\renewcommand{\t}[1]{\texttt{#1}}
+\newcommand{\bi}{\bfseries\itshape} % Жирный курсив
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%               Математика          %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% переносы знаков в формулах
+% (добавить второй строкой преамбулы \EQDIS)
+\def\EQDIS{
+\gdef\cplus{+\discretionary{}{\hbox{$+$}}{}}
+\gdef\cminus{-\discretionary{}{\hbox{$-$}}{}}
+\let\scdot=\cdot
+\gdef\cdot{\scdot\discretionary{}{\hbox{$\scdot$}}{}}
+\let\ctimes=\times
+\gdef\times{\ctimes\discretionary{}{\hbox{$\ctimes$}}{}}
+\catcode`\+=\active
+\catcode`\-=\active
+\catcode`\*=\active
+\let+=\cplus
+\let-=\cminus
+\let*=\cdot
+}
+%\catcode`\=\active
+%\def\ceq{=\discretionary{}{\hbox{$=$}}{}}
+%\let=\ceq
+%\catcode`\==12}
+
+% Удобнейшие сокращения:
+\let≤=\leqslant
+\let≥=\geqslant
+\newcommand{\Ang}{\mbox{\rm\AA}}	% Ангстрем
+\newcommand{\arr}{\ensuremath{\,\rightarrow\,}}	% Стрелка вправо
+\newcommand{\Arr}{\ensuremath{\,\Rightarrow\,}}	% жирная -//-
+\newcommand{\aver}[1]{\mathopen{\bm{<}}#1\mathclose{\bm{>}}} % average
+%\newcommand{\B}[1]{\ensuremath{\mathbf{#1}}}	% Жирный шрифт (матрицы и т.п.)
+\newcommand{\B}[1]{\ensuremath{\bm{#1}}}	% Жирный шрифт (матрицы и т.п.)
+%\newcommand{\bra}[1]{\ensuremath{\langle #1|}}	% Бра-вектор
+\DeclarePairedDelimiter{\bra}{\langle}{\rvert} 
+\newcommand{\bracket}[1]{\ensuremath{\langle #1|#1\rangle}}	% Квадрат модуля вектора состояния
+\newcommand{\cket}[1]{\ensuremath{#1\rangle}}	% Кэт вектор, если умножается на бра-
+\newcommand{\const}{\ensuremath{\mathfrak{const}}} % постоянная
+\renewcommand{\C}{\ensuremath{\mathfrak{C}}}	% Постоянная интегрирования
+\newcommand{\D}{\ensuremath{\mathfrak{D}}}	% Комплексное электрическое смещение
+\newcommand{\ddotvec}[1]{%\ddot{\vec{#1}}}	% вторая производная вектора по времени
+    \savebox{\hght}{$\vec{#1}$}\ddot{\raisebox{0pt}[.8\ht\hght]{$\vec{#1}$}}} % 2я производная вектора
+\newcommand{\degr}{\ensuremath{^\circ}}		% Градус
+\newcommand{\diam}{\ensuremath{\varnothing\,}}	% Диаметр
+\newcommand{\diver}{\mathop{\mathrm{div}}\nolimits} % Дивергенция
+\newcommand{\dotvec}[1]{%			% Производная вектора по времени
+    \savebox{\hght}{$\vec{#1}$}\dot{\raisebox{0pt}[.8\ht\hght]{$\vec{#1}$}}}
+\newcommand{\dpartder}[2]{\dfrac{\partial^2 #1}{\partial #2^2}}	% вторая частная производная
+\newcommand{\e}{\mathop{\mathrm e}\nolimits}	% Экспонента
+\newcommand{\E}{\mathcal{E}}			% ЭДС
+\renewcommand{\epsilon}{\varepsilon}		% Красивый эпсилон
+\newcommand{\frc}[2]{\raisebox{2pt}{$#1$}\big/\raisebox{-3pt}{$#2$}}	% a/b, a выше, b ниже
+\newcommand{\F}{\ensuremath{\mathop{\mathfrak F}}\nolimits}	% Красивая Ф
+%\newcommand{\FT}[1]{\mathop{\mathcal{F}}\nolimits\left(#1\right)} % Фурье-преобразование
+%\newcommand{\IFT}[1]{\mathop{\mathcal{F}^{-1}}\nolimits\left(#1\right)} % Обратное ФП
+\newcommand{\FT}[1]{\mathcal{F}(#1)} 		% Фурье-преобразование
+\renewcommand{\H}{\ensuremath{\mathfrak{H}}}	% Комплексная напряженность ЭП
+\newcommand{\IFT}[1]{\mathcal{F}^{-1}(#1)} 	% Обратное ФП
+\renewcommand{\ge}{\geqslant}			% Больше или равно (\equiv - тождественно, а не равно !)
+\newcommand{\grad}{\mathop{\mathrm{grad}}\nolimits} % Градиент
+\newcommand{\I}{\ensuremath{\mathfrak{I}}}	% Интеграл
+\newcommand{\ind}[1]{_{\text{\scriptsize #1}}}	% Нижний индекс русс. буквами
+\newcommand{\indfrac}[2]{\raisebox{2pt}{$\frac{\mbox{\small $#1$}}{\mbox{\small $#2$}}$}}
+\newcommand{\ILT}[1]{\mathop{\mathfrak{L}}\nolimits^{-1}(#1)} % Обратное преобр. Лапласа
+\newcommand{\Infint}{\int\limits_{-\infty}^\infty} % Интеграл по всей R
+\newcommand{\Int}{\int\limits}		% Большой интеграл (можно поменять \int на \varint)
+\newcommand{\IInt}{\mathop{{\int\!\!\!\int}}\limits}	% Двойной большой интеграл
+\renewcommand{\kappa}{\varkappa}		% Красивая каппа
+%\newcommand{\ket}[1]{\ensuremath{|#1\rangle}}	% Кэт-вектор
+\DeclarePairedDelimiter{\ket}{\lvert}{\rangle}
+\renewcommand{\le}{\leqslant}			% Меньше или равно
+\newcommand{\ltextarrow}[1]{\ensuremath{\stackrel{#1}\leftarrow}} % Стрелка влево с подписью сверху
+\newcommand{\lvec}{\overrightarrow}		% Длинный вектор
+\newcommand{\LT}[1]{\mathop{\mathfrak{L}}\nolimits(#1)} % Преобразование Лапласа
+\newcommand{\M}{\ensuremath{\mathop{\mathfrak M}\nolimits}} % Масса звезды
+\newcommand{\mean}[1]{\overline{#1}}		% Среднее арифметическое
+\newcommand{\med}[1]{\mathop{\mathrm{med} #1}\nolimits}	% Среднее арифметическое
+\newcommand{\Oint}{\oint\limits}		% Большой интеграл
+\renewcommand{\P}{\ensuremath{\mathfrak{P}}}	% Комплексная поляризованность
+\newcommand{\partder}[2]{\dfrac{\partial #1}{\partial #2}} %Частная производная
+\renewcommand{\phi}{\varphi}			% Красивая фи
+\newcommand{\R}{\ensuremath{\mathbb{R}}} % рациональные числа
+\newcommand{\rev}[1]{\frac{1}{#1}}		% Обратная величина
+\newcommand{\rot}{\mathop{\mathrm{rot}}\nolimits} % Ротор
+\newcommand{\rtextarrow}[1]{\ensuremath{\stackrel{#1}\rightarrow}} % Стрелка вправо с подписью
+\newcommand{\Sum}{\sum\limits}
+\newcommand{\sinc}{\mathop{\mathrm{sinc}}\nolimits} % Интегральный синус
+\newcommand{\Tr}{\mathop{\mathrm{Tr}}\nolimits}	% След матрицы
+\newcommand{\veci}{{\vec\imath}}		% i-орт
+\newcommand{\vecj}{{\vec\jmath}}		% j-орт
+\newcommand{\veck}{{\vec{k}}}			% k-орт
+\newcommand{\when}[2]{\settowidth{\myflt}{\scriptsize $#2$}% Верт. линия с нижним индексом
+    \ensuremath{\left.{#1}\right|_{#2}\hspace{-\myflt}\,}}
+\newcommand{\ZT}[1]{\mathop{\mathcal{Z}}\nolimits(#1)} % Z-преобразование
+\newcommand{\IZT}[1]{\mathop{\mathcal{Z}}\nolimits^{-1}(#1)} % Обратное -//-
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%               Разное             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Команда \Ins помещает в текст красную рамку, в которой либо пусто (если
+% команда без аргументов) либо #1; на полях вставляется красный квадратик
+\def\InsTxt@#1{\red{\fbox{#1}}\marginpar{\red{\Square}}\xspace}
+\def\Ins{\futurelet\next\Ins@i}
+\def\Ins@i{\ifx\next\bgroup\expandafter\Ins@ii\else\expandafter\Ins@end\fi}
+\def\Ins@ii#1{\InsTxt@{#1}} %One arg
+\def\Ins@end{\InsTxt@{\phantom{text}}} %None args
+
+
+\newcommand{\look}[1]{(см.~рис.~\ref{#1})}
+\newcommand{\mybox}[1]{\parbox[c]{10cm}{\hangindent=5mm\parindent=.6cm\noindent #1\strut}}
+\newcommand{\mymbox}[1]{\parbox[c]{8cm}{\hangindent=5mm\parindent=.6cm\noindent #1\strut}}
+\newcommand{\book}[1]{%
+    \usepackage[print,largetypeblock]{booklet}
+    \pagespersignature{#1}%
+    \pdfoutput=1
+    \setpdftargetpages
+%    \setdvipstargetpages
+    \special{!TeXDict begin <</Tumble true>> setpagedevice end}
+    \relax
+}
+\newcommand{\л}{Linux}
+\newcommand{\answer}{\smallskip\par\hspace{1cm}{\bfseries\itshape Ответьте на вопрос(ы):}\nopagebreak\par}
+\newcommand{\zad}{\smallskip\refstepcounter{zadacha}\par%
+    \hbox{\hspace{1cm}\bf Выполните задание (\thezadacha):}%
+    \nopagebreak\smallskip\nopagebreak\par}
+\newenvironment{zadanie}{\refstepcounter{zadacha}\begin{longtable}{||p{\textwidth}}%
+    \underline{\bf Выполните задание \thezadacha:}\endfirsthead%
+    \underline{\bf (продолжение задания \thezadacha)}\endhead}
+    {\\\end{longtable}}
+\newcommand{\Tab}{\raisebox{-.1\kegle}{\raisebox{.4\kegle}{\hbox to 0pt{\rule[.04\kegle]{.4pt}{.52\kegle}%
+    \hspace{-.06\kegle}$\leftarrow$}}\hbox{$\rightarrow$\hspace{-.06\kegle}\rule[.04\kegle]{.4pt}{.52\kegle}}}}% Символ табуляции
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%              Колонтитулы            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\FDL{\gdef\@FDL{}}
+%\def\mycopyright{\ifx\FDL\@undefined\hbox to 0pt{\vbox{\hrule\hbox{\strut\copyright\;\number\year\;
+%Емельянов Э.В.}}}\fi}
+\renewcommand{\@evenhead}{\vbox{\hbox to \textwidth%
+	{\hfil\leftmark\strut}\hrule}}
+	%{\thepage\hfil\leftmark\strut}\hrule}}
+\renewcommand{\@oddhead}{\vbox{\hbox to \textwidth%
+	{\rightmark\hfil\strut}\hrule}}
+	%{\rightmark\hfil\thepage\strut}\hrule}}
+\renewcommand{\@evenfoot}%
+	%{\hfil\vbox{\hrule\hbox{\small \copyright{}Емельянов Э.В.\strut}}}
+	%{\hfil\thepage\hfil\mycopyright}
+	{\thepage\hfil\hbox to 0pt{\hss\ifx\@FDL\@undefined\vbox{\hrule\hbox{
+	\strut\copyright\; Емельянов Э.В., \number\year}}\else\small\sl Данный
+	документ распространяется на основе лицензии FDL\fi}}
+\renewcommand{\@oddfoot}%
+        %{\vbox{\hrule\hbox{\small\strut\number\year\, год  }}\hfil}
+	%{\hfil\thepage\hfil}
+	{\hbox to 0pt{\ifx\@FDL\@undefined\vbox{\hrule\hbox{
+	\strut\copyright\; Емельянов Э.В., \number\year}}\else\small\sl Данный
+	документ распространяется на основе лицензии FDL\fi}\hfil\thepage}
+\newcommand{\nofoot}{\renewcommand{\@oddfoot}{\vbox{\hbox to\textwidth{\hfil\thepage}}}%
+	\renewcommand{\@evenfoot}{\vbox{\hbox to\textwidth{\thepage\hfil}}}}
+% \newcommand{\nocolon}{%
+% 	\renewcommand{\@oddhead}{\vbox{\hbox to \textwidth%
+% 	{\hfil\sl\rightmark\hfil\strut}}}
+% 	\renewcommand{\@oddfoot}%
+%         {\vbox{\hbox to \textwidth{\hfil\thepage\hfil}}}}
+\newcommand{\nocolon}{
+	\renewcommand{\@oddhead}{}\renewcommand{\@evenhead}{}
+	\renewcommand{\@oddfoot}{\vbox{\hbox to \textwidth{\hfil\thepage\hfil}}}
+	\renewcommand{\@evenfoot}{\vbox{\hbox to \textwidth{\hfil\thepage\hfil}}}
+}
+\newcommand{\disscol}{%
+	\renewcommand{\@oddhead}{\vbox{\hbox to \textwidth{\hfil\thepage\hfil}}}
+        \renewcommand{\@evenhead}{\vbox{\hbox to \textwidth{\hfil\thepage\hfil}}}
+        \renewcommand{\@oddfoot}{}
+	\renewcommand{\@evenfoot}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%             Содержание, начало и конец текста         %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\l@mytoc}[2]{\vspace{8pt}\hbox to\textwidth%
+	{\hspace{.5cm}\parbox[b]{15cm}{#1 \hrulefill}\hrulefill\, #2}}
+\newcommand{\l@headtoc}[2]{\vspace{12pt}\hbox to\textwidth%
+        {\hspace{8mm}\parbox[b]{15cm}{\bf #1}\hfil\bf #2}\vspace{4pt}}
+%\renewcommand{\tableofcontents}%
+%	{\vbox{\vspace{1cm}\Large\bf Оглавление\hfil\par\vspace{1.5cm}}\@starttoc{toc}}
+\renewcommand{\title}[1]{\gdef\@title{#1}\gdef\@bktitle{#1}}
+\def\booktitle{\@bktitle}
+\renewcommand{\author}[1]{\gdef\@author{#1}\gdef\@bkauthor{#1}}
+\author{\it Емельянов Эдуард Владимирович}
+\newcommand{\beg}%
+	{\relax\ifx\@bktitle\@undefined
+	\def\@bktitle{USE title\{name\}}
+	\def\@title{\@bktitle}\fi%
+	\maketitle\thispagestyle{empty}\cleardoublepage\tableofcontents\clearpage\relax}%\markboth{Оглавление}{Оглавление}
+\def\tir@zh{1}
+\newcommand{\tirazh}[1]{\def\tir@zh{#1}}
+\def\back{
+	\newpage
+	\pagestyle{empty}
+\ \vfill
+	\begin{center}
+%	    \bf Емельянов Эдуард Владимирович\rm\par
+	    \bf\@bkauthor\rm\par
+%    	    (редактор, технический корректор, корректор --
+%	    Емельянов Эдуард Владимирович.)
+	    \vspace{3mm}\par
+	    \bf\@bktitle\par\rm\small
+	    \vspace*{10pt}\hrule\vspace*{3pt}
+	    Подписано в печать~\today\quad Гарнитура Computer Modern.\\
+	    Фомат $60\times80\,\,1/16$.
+	    Тираж \raisebox{-2pt}{\rule{30pt}{1pt}}\hspace{-30pt}\hbox to 30pt{\hss\tir@zh\hss} экз.
+	    Цена договорная.\vspace*{3pt}\hrule
+	    \medskip
+	    Отпечатано в домашней типографии Емельянова Э.В.\\\hfill
+	    \ifx\@FDL\@undefined\copyright\else{\sl (FDL)}\fi\quad Емельянов Э.В., \thisyear\par
+	\end{center}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%             Разделы документа                 %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\sect}[1]{\refstepcounter{sect}\par\vspace{1.5cm plus 1cm minus .5cm}
+	{\Huge\bf\begin{center}\thesect #1\end{center}}%
+	\addcontentsline{toc}{headtoc}{\thesect #1}\markboth{\thesect #1}{\thesect #1}%
+	\nopagebreak\bigskip\par}
+\newcommand{\subsect}[1]{\refstepcounter{subsect} \par\vspace{.9cm plus .5cm minus .2cm}\noindent%
+	{\Large\bf\thesubsect\hspace{.5cm}#1}\par%
+	\addcontentsline{toc}{mytoc}{\hspace{1cm}\thesubsect \, #1}%
+	\markright{\thesubsect #1}
+	\nopagebreak\medskip\par\nopagebreak}
+\newcommand{\subsubsect}[1]{\refstepcounter{subsubsect}\par\vspace{.5cm plus .3cm minus .2cm}\noindent%
+	{\large\bf\thesubsubsect #1}\par%
+	\addcontentsline{toc}{mytoc}{\hspace{2.5cm}\thesubsubsect #1}%
+%	\markright{\thesubsect #1}
+	\nopagebreak\par\nopagebreak}
+\newcommand{\intro}[1]{\clearpage
+	\addcontentsline{toc}{headtoc}{#1}\markright{#1}
+	{\Huge\bf\begin{center}#1\end{center}}\nopagebreak\par\bigskip\nopagebreak}
+\newcommand{\myitem}[1]{\refstepcounter{myitem}\smallskip\par\noindent{\bf\themyitem.}%
+	\hfil\parbox[t]{16.5cm}{\parindent=.6cm\noindent #1}\smallskip\par}
+\def\sbitem{\smallskip\par\refstepcounter{sbitem}\thesbitem%
+	\hspace*{5pt}}
+\newcommand{\myitcont}[1]{\hfil\parbox[t]{16.5cm}{\parindent=.6cm\noindent%
+	#1}\smallskip\par}
+%\newcommand{\mar}[1]{\par\noindent $\blacktriangleright$ \hfill%
+%\parbox[t]{0.9\columnwidth}{#1}\smallskip\par}
+\newcommand{\mar}[1]{%
+    \begin{list}{\hbox to 0pt{\hspace{-7mm}$\blacktriangleright$}}{%
+    \parsep=0mm\topsep=0mm\partopsep=0mm\leftmargin=\parindent%
+    \rightmargin=\parindent\item}#1%
+    \setlength{\myflt}{-\parskip}\addtolength{\myflt}{\textwidth}
+    \vspace{-\baselineskip}\par
+    \hbox to \myflt{\hfill$\blacktriangleleft$}\smallskip
+    \end{list}}
+\newcommand{\reshenie}{\nopagebreak\bigskip\par\nopagebreak\hbox to \textwidth%
+        {\hfill\large\bf Решение:\hfill}\nopagebreak\medskip\nopagebreak\par}
+\def\sub{\smallskip\par\refstepcounter{sub}\thesub%
+	\hspace*{5pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%%%%%%%%%%               Окружения               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\cn}[1]{\begin{center} #1 \end{center}}	% Центрированный объект
+\newcommand{\cbox}[1]{\hbox to 0pt{\hss #1\hss}}	% То же, но не занимающее места по горизонтали
+% переопределяем itemize, enumerate и description
+% + оставляем простую возможность изменить их
+% украдено отсюда:
+% http://dcwww.camd.dtu.dk/~schiotz/comp/LatexTips/tweaklist.sty
+\def\enumhook{\setlength{\itemsep}{0cm}% общие команды внутри enumerate
+	\setlength{\parsep}{0cm}\setlength{\topsep}{2mm}}
+\def\enumhooki{} % команды внутри 1 уровня вложенности
+\def\enumhookii{} % команды внутри 2 и последующих уровней
+\def\enumhookiii{}
+\def\enumhookiv{}
+\def\itemhook{\enumhook} % то же самое для itemize
+\def\itemhooki{}
+\def\itemhookii{}
+\def\itemhookiii{}
+\def\itemhookiv{}
+\def\descripthook{} % и для description
+\def\enumerate{%
+  \ifnum \@enumdepth >\thr@@\@toodeep\else
+    \advance\@enumdepth\@ne
+    \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
+      \expandafter
+      \list
+        \csname label\@enumctr\endcsname
+        {\usecounter\@enumctr\def\makelabel##1{\hss\llap{##1}}%
+          \enumhook \csname enumhook\romannumeral\the\@enumdepth\endcsname}%
+  \fi}
+\def\itemize{%
+  \ifnum \@itemdepth >\thr@@\@toodeep\else
+    \advance\@itemdepth\@ne
+    \edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
+    \expandafter
+    \list
+      \csname\@itemitem\endcsname
+      {\def\makelabel##1{\hss\llap{##1}}%
+        \itemhook \csname itemhook\romannumeral\the\@itemdepth\endcsname}%
+  \fi}
+\renewenvironment{description}
+                 {\list{}{\labelwidth\z@ \itemindent-\leftmargin
+                          \let\makelabel\descriptionlabel\descripthook}}
+                 {\endlist}
+
+\newenvironment{myitemize}%
+	{\begin{list}{$\gg$}{\setlength{\itemsep}{0cm}%
+	\setlength{\parsep}{0cm}\setlength{\topsep}{2mm}}}{\end{list}}
+\newenvironment{pict}%
+	{\begin{figure}[!h]\vspace*{-6pt}\begin{center}\noindent}{\end{center}
+\vspace*{-18pt}
+\end{figure}}
+\newenvironment{tbl}%
+{\begin{table}\vspace*{-6pt}\begin{center}\noindent}{\end{center}\vspace*{-18pt}
+\end{table}}
+\newenvironment{poetry}[1]{\vspace{8mm plus 14mm minus 2mm}\par%
+	\addcontentsline{toc}{mytoc}{\it #1}%\hbox to \textwidth{\hss\Large\bf #1\hss}\nopagebreak\par%
+	\begin{verse}\centerline{\Large\bf #1}\vspace{1em}}{\end{verse}}
+\newenvironment{re}{\begin{verse}\bf Припев:\rm\\}{\end{verse}}
+\newenvironment{mylist}{\begin{list}{}{\leftmargin=1in\itemsep=0in}}{\end{list}}
+\newenvironment{answ}{\answer\nopagebreak\begin{quote}}{\end{quote}\medskip}
+\newenvironment{zadacha}{\vspace{12pt plus 12pt minus 7pt}\par\noindent\bf
+	\refstepcounter{zadacha}\hspace{-\parindent}\hbox to 0pt{$\blacktriangleright$}%
+	\hspace{1.5\parindent}Задача \thezadacha.\rm\nopagebreak\smallskip\par
+	\nopagebreak}{\medskip\par}
+\newenvironment{subenumerate}%
+	{\begin{list}{\arabic{sblst}.}{\usecounter{sblst}\setlength{\itemsep}{0cm}%
+	\setlength{\parsep}{0cm}\setlength{\topsep}{1mm}\item[]}}{\end{list}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%        Астрономические журналы        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\aa{{Astron.~\& Astrophys}}
+\def\aaa{{Astron.~\& Astrophys}}
+\def\ao{{Applied Optics}}  %{{Astron.~\& Opt. }}
+\def\araa{{Annu.~Rev. Astron.~Astrophys}}
+\def\aj{{Astron.~J}}
+\def\azh{{Астроном.~Журнал}}
+\def\aas{{Astron.~Astrophys. Suppl}}
+\def\aar{{Astron.~Astrophys. Rev}}
+\def\apj{{Astrophys.~J}}
+\def\apjs{{Astrophys.~J. Suppl}}
+\def\apss{{Astrophys. Space~Sci}}
+\def\baas{{Bull. Amer.~Astron.~Soc}}
+\def\bsao{{Bull. Spec.~Astrophys.~Obs}}
+\def\izvsao{{Известия САО~РАН}}
+\def\jaa{{J.~of Astron. Astrophys}}
+\def\josa{{J.~of the Opt. Soc. of~America}}
+\def\jrasc{{J.~of Royal Astron.~Soc. of~Canada}}
+\def\mnras{{Mon.~Not.~ of Royal Astron.~Soc}}
+\def\pazh{{Письма в~Астрон. Журнал}}
+\def\pasp{{Publ. Astron.~Soc. Pacific}}
+\def\pasj{{Publ. Astron.~Soc. Japan}}
+\def\soros{{Соросовский образовательный журнал}}
+\def\sovast{{Советская астрономия}}
+\def\sca{{Scient.~Am}}
+\def\skytel{{Sky~\& Telesc}}
+\def\spsrev{{Space Sci.~Rev}}
+\def\psao{{Препринт САО~РАН.}}
+\def\vnksf{{Всероссийская Научная Конференция Студентов-Физиков и молодых ученых}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% Дополнительная библиография %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{mybibliography}[1]
+      {\list{\@biblabel{\@asbuk\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@asbuk\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\endlist}
+\newenvironment{biblio}[1]
+      {\list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+	    \itemsep=0pt plus 1pt
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\endlist}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Рабочие программы, техзадания и пр.%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\workprtitle}[3]{%
+	\begin{titlepage}
+	\begin{center}
+	\large
+	МИНИСТЕРСТВО ОБРАЗОВАНИЯ СТАВРОПОЛЬСКОГО КРАЯ\\
+	СТАВРОПОЛЬСКИЙ ПОЛИТЕХНИЧЕСКИЙ КОЛЛЕДЖ
+	\vspace{5cm}\par
+	\Huge\bf
+	РАБОЧАЯ ПРОГРАММА\\ УЧЕБНОЙ ДИСЦИПЛИНЫ\par
+	\rm\normalsize
+	\raisebox{.5cm}[3.5cm]{\parbox[b]{\textwidth}{%
+	\centering \Large\bf #1}}
+	\hrule\strut
+	(наименование дисциплины)\par
+	\raisebox{2mm}[3cm]{\parbox[b]{\textwidth}{%
+	\centering\large\bf #2}}
+	\hrule\strut
+	(наименование специальностей)\par
+	\raisebox{.5cm}[2cm]{\parbox[b]{\textwidth}{%
+	\centering\Large\bf #3}}
+	\hrule\strut
+	(уровень среднего профессионального образования)
+	\vspace{4cm}\par
+	\large г. Ставрополь, 2005\, г.
+	\end{center}
+	\clearpage
+	\thispagestyle{empty}
+	\parbox[t]{.47\textwidth}{
+	Одобрена\\
+	Учебно-методическим\\
+	Советом\\
+	СГПК\\
+	\vspace{5cm}\par
+	Председатель\vspace{2cm}\par\hrule}
+	\parbox[t]{.47\textwidth}{
+	Составлена в соответствии с государственными требованиями к минимуму содержания и
+	уровню подготовки выпускников для специальности
+	\vspace{1cm}\par\hrule
+	\vspace{1cm}\par\hrule
+	\vspace{1cm}\par\hrule
+	\centering (групп специальностей)
+	\vspace{1cm}\par\flushleft
+	Министерство (ведомство)-
+	разработчик ГОС СПО
+	По закрепленным специальностям}
+	\vspace{3cm}\par
+	\parbox{7cm}{Автор:\\
+	Емельянов Э.В.
+	\vspace{2.5cm}\par
+	Рецензенты:
+	\vspace{3cm}\par
+	Редактор:}
+	\end{titlepage}}
+
+% Титульная страница технического задания
+% \texzadtitle{Должность согласовавшего}{Имя согласовавшего}{Название}{Список
+%авторов через \\}{Одобрено...}
+\newcommand{\texzadtitle}[4]{%
+\begin{titlepage}
+	\vbox{
+		\parbox{7.5cm}{
+			\centerline{<<СОГЛАСОВАНО>>}
+			\centerline{#1}\vspace{20pt}
+			\hrulefill~#2\par\vspace{7pt}
+			\centerline{\hbox to
+			6cm{<<\rule{7mm}{0.4pt}>>\hrulefill~\number\year\,г.}}
+		}
+		\hfill
+		\parbox{7.5cm}{
+			\centerline{<<УТВЕРЖДАЮ>>}
+			\centerline{Директор САО РАН, чл.-корр. РАН}\vspace{20pt}
+			\hrulefill~Балега Ю.Ю.\par\vspace{7pt}
+			\centerline{
+			\hbox to 6cm{<<\rule{7mm}{0.4pt}>>\hrulefill~\number\year\,г.}}
+		}
+	}
+	\vfill
+	\begin{center}
+	ТЕХНИЧЕСКОЕ ЗАДАНИЕ\\
+	#3\vskip 3em\normalfont
+	\begin{tabular}[t]{c}\@author\end{tabular}
+	\end{center}
+	\vfill
+	%\hfill\parbox{8cm}{#4}
+	\vfill
+	\centerline{#4}
+	\vspace*{1cm}
+	\centerline{Нижний Архыз, \number\year\,г.}
+\end{titlepage}
+% подпись авторов
+\def\signatures{
+\def\and{\\[1.5em] \hrulefill\hspace{1em}}
+\vskip 1cm
+\today\hfill
+%\flushright
+\begin{tabular}[t]{p{7cm}}
+	\hrulefill\hspace{1em}\@author
+\end{tabular}
+}
+% Разделы ТЗ
+\newcommand{\ts}[1]{\refstepcounter{sect}\par%
+\vspace{1cm plus 1cm minus .5cm}{\indent\bf\thesect \, \lowercase{##1}}%
+\addcontentsline{toc}{section}{\thesect ##1}\markboth{\thesect ##1}{\thesect
+##1}\nopagebreak\par}
+\newcommand{\tss}[1]{\refstepcounter{subsect}\medskip\par%
+{\indent\thesubsect\hspace{.5cm}##1}\par%
+\addcontentsline{toc}{subsection}{\hspace{1cm}\thesubsect \, ##1}%
+\markright{\thesubsect ##1}\nopagebreak\par\nopagebreak}
+\newcommand{\tsss}{\refstepcounter{subsubsect}
+\smallskip\par\indent\thesubsubsect \,}
+}
+
+\def\@zakaz{{\small\tt$\backslash$zakaz\{Номер заказа\}}}
+\newcommand{\zakaz}[1]{\gdef\@zakaz{#1}}
+\def\@uchizdl{{\small\tt$\backslash$uchizdl\{Кол-во симв./40000\}}}
+\newcommand{\uchizdl}[1]{\gdef\@uchizdl{#1}}
+%\def\@uslpechl{{\small\tt$\backslash$uslpechl\{Кол-во листов/16\}}}
+%\newcommand{\uslpechl}[1]{\gdef\@uslpechl{#1}}
+\def\@podpech{{\small\tt$\backslash$podpech\{Дата подпис-я в печать\}}}
+\newcommand{\podpech}[1]{\gdef\@podpech{#1}}
+\newcommand{\backpage}{\clearpage
+\pagestyle{empty}
+\ \vfill\begin{center}
+\bf\@bkauthor\rm\par
+\vspace{3mm}\par
+\bf\@bktitle\par\rm\small\end{center}
+\vspace*{10pt}
+\hrule height 2pt\vspace*{4pt}
+\newcount{\podp}\newcount{\podpfr}
+\podp=\c@page
+\podpfr=\c@page
+\divide\podp by 16
+\multiply\podp by 100
+\multiply\podpfr by 100
+\divide\podpfr by 16
+\advance\podpfr by -\podp
+\divide\podp by 100
+\noindent\hfil Подписано в печать \@podpech\hfil Гарнитура Computer Modern\hfil\\
+\hbox to 0pt{Формат $60\!\times\!84\;1/16$}\hfil
+Усл.печ.л.~{\the\podp.\ifnum\podpfr<10 0\fi\the\podpfr}\hfil
+\hbox to 0pt{\hss Уч.-изд.л. \@uchizdl}\linebreak
+\hbox to 0pt{Бумага офсетная}\hfil
+Тираж \tir@zh~экз.\hfil
+\hbox to 0pt{\hss Заказ \@zakaz}\linebreak
+\vspace{-10pt}\hrule height 2pt
+\begin{center}
+\small\noindent
+Отпечатано в Издательско-полиграфическом комплексе\\
+Ставропольского государственного университета.\\
+355009, Ставрополь, ул. Пушкина, 1.
+\end{center}}
+
+\newcommand{\metodtitle}%
+	{\relax\ifx\@bktitle\@undefined
+	\def\@bktitle{USE title\{name\}}
+	\def\@title{\@bktitle}\fi%
+	\begin{titlepage}
+	\begin{center}
+	Министерство образования Российской Федерации\\
+	Ставропольский государственный университет\\
+	\vfill{\@title}\vfill
+	Ставрополь, \thisyear~г.
+	\end{center}
+	\end{titlepage}}
+
+\def\specn@me{$\backslash$specname\{название\}}
+\newcommand{\specname}[1]{\gdef\specn@me{#1}}
+\def\specc@de{$\backslash$speccode\{код\}}
+\newcommand{\speccode}[1]{\gdef\specc@de{#1}}
+\def\h@urs{$\backslash$hours\{часов\}}
+\newcommand{\hours}[1]{\gdef\h@urs{#1}}
+\def\s@mestr{$\backslash$semestr\{семестр\}}
+\newcommand{\semestr}[1]{\gdef\s@mestr{#1}}
+\def\m@de{$\backslash$made\{дата\}}
+\newcommand{\made}[1]{\gdef\m@de{#1}}
+\newcommand{\progrtitle}%
+	{\relax\ifx\@bktitle\@undefined
+	\def\@bktitle{USE title\{name\}}
+	\def\@title{\@bktitle}\fi%
+	\begin{titlepage}
+	\begin{center}
+	Министерство образования Российской Федерации\\
+	Ставропольский государственный университет\\[1cm]
+	\end{center}
+	{\bf <<Утверждаю>>\\ Проректор по учебной работе\\
+	В.С.~Белозеров\\[10pt] \rule{4cm}{.2pt}\\
+	<<\rule{1cm}{.2pt}>>\rule{2.5cm}{.2pt}\,20\rule{6mm}{.2pt}~г.}\\
+	\begin{center}
+	{\@title}\\
+	{\bf ПРОГРАММА}\\
+	для студентов, обучающихся по специальности \specc@de~--- <<\specn@me>>
+	\end{center}\vspace{1cm}
+	{\bf Объем занятий\rm: всего \h@urs~часов\\
+	Изучается в \s@mestr~семестре\\
+	\bf Разработана: \rm ст. преподавателем кафедры\\
+	теоретической физики 	Емельяновым~Э.В.\\
+	\bf Дата разработки: \rm \m@de\\
+	\bf Согласована: декан ФМФ\rm\\[10pt]
+	\rule{2cm}{.2pt}/\rule{4cm}{.2pt}/\\
+	<<\rule{1cm}{.2pt}>>\rule{2.5cm}{.2pt}\,20\rule{6mm}{.2pt}~г.\\
+	\bf Зав. кафедрой\rm\\
+	\rule{2cm}{.2pt}/\rule{4cm}{.2pt}/\\
+	}\vspace*{-2cm}
+	\begin{flushright}
+	Рассмотрено УМК ФМФ\\
+	<<\rule{1cm}{.2pt}>>\rule{2.5cm}{.2pt}\,20\rule{6mm}{.2pt}~г.\\
+	протокол \No\rule{20pt}{.2pt}\\
+	Председатель УМК \rule{3cm}{.2pt}
+	\end{flushright}
+	\vfill
+	\centerline{Ставрополь, \thisyear~г.}
+	\end{titlepage}}
+
+
+\newenvironment{qwest}{
+\smallskip
+\frstltr{?}\hbox to\textwidth{\hss\bf\large Вопросы для самоконтроля \hss}\nopagebreak
+\begin{enumerate}}
+{\end{enumerate}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%   Правильное действие upper/lowercase    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcount\C@@NT\newcount\L@TT@R
+%\def\UL#1{\C@@NT=#1\advance\C@@NT by32
+%\lccode#1=#1\uccode#1=\C@@NT\lccode\C@@NT=#1\uccode\C@@NT=\C@@NT}
+%\L@TT@R=192
+%\loop\ifnum \L@TT@R<224 \UL{\L@TT@R}\advance\L@TT@R by1\repeat
+%\lccode`\ё=`\ё\lccode`\Ё=`\ё\uccode`\ё=`\Ё\uccode`\Ё=`\Ё
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%   Коррекция для bibtex'овских кривых стилей %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\bbljan{}\def\bblfeb{}\def\bblmar{}
+\def\bblapr{}\def\bblmay{}\def\bbljun{}
+\def\bbljul{}\def\bblaug{}\def\bblsep{}
+\def\bbloct{}\def\bblnov{}\def\bbldec{}

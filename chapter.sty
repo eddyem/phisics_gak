@@ -1,0 +1,32 @@
+\renewcommand\chapter{\secdef\@chapter\@schapter}
+\def\@chapter[#1]#2{\if@openright\cleardoublepage\else\clearpage\fi
+					\addcontentsline{toc}{chapter}{#1}%
+                    \markboth{#1}{#1}
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \thispagestyle{empty}
+                    \if@twocolumn
+                      \@topnewpage[\@makechapterhead{#2}]%
+                    \else
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                    \fi}
+\def\@schapter#1{\clearpage\thispagestyle{empty}\if@twocolumn
+                   \@topnewpage[\@makeschapterhead{#1}]%
+                 \else
+                   \@makeschapterhead{#1}%
+                   \@afterheading
+                 \fi}
+\def\@makechapterhead#1{{\ \thispagestyle{empty}\vfill\begin{center}\Huge\bfseries #1\end{center}\par\vfill\clearpage}}
+\def\@makeschapterhead#1{{\begin{center}\LARGE\bfseries #1\end{center}\par\nobreak\vskip 10\p@}}
+
+
+
+\renewcommand{\@evenhead}{\vbox{\hbox to \textwidth%
+	{{\ttfamily\thepage}\hfil\leftmark\strut}\hrule}}
+	%{\thepage\hfil\leftmark\strut}\hrule}}
+\renewcommand{\@oddhead}{\vbox{\hbox to \textwidth%
+	{\rightmark\hfil\strut{\ttfamily\thepage}}\hrule}}
+	%{\rightmark\hfil\thepage\strut}\hrule}}
+\renewcommand{\@evenfoot}{}
+\renewcommand{\@oddfoot}{}

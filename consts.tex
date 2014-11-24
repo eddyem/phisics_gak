@@ -1,0 +1,125 @@
+\chapter*{Основные постоянные}
+\addcontentsline{toc}{chapter}{Основные постоянные}\markboth{Основные постоянные}{Основные постоянные}
+\begin{description}
+	\item[Скорость света] $c=2.997925\cdot10^8\,$м/с.
+	\item[Число Авогадро] $N_A=6.0225\cdot10^{23}\,$моль${}^{-1}$.
+	\item[Гравитационная постоянная]
+$G=6.670\cdot10^{-11}\,$Н$\cdot$м${}^2$/кг${}^2$ $=6.670\cdot10^8\,$
+дин$\cdot$см${}^2$/г${}^2$.
+	\item[Заряд электрона] $e=1.60210\cdot10^{-19}\,$Кл
+$=4.8030\cdot10^{-10}\,$СГС.
+	\item[Масса электрона] $m_e=9.1091\cdot10^{-31}\,$кг$\,=0.5108\,$МэВ.
+	\item[Масса протона] $m_p=1.67252\cdot10^{-27}\,$кг.
+	\item[Масса нейтрона] $m_n=1.67482\cdot10^{-27}\,$кг.
+	\item[Масса $\alpha$-частицы] $m_\alpha=6.644\cdot10^{-27}\,$кг.
+	\item[Число Фарадея] $F=eN_A=9.6487\cdot10^4\,$Кл
+$=2.8926\cdot10^{14}\,$СГС.
+	\item[Диэлектрическая проницаемость вакуума] $\epsilon_0=8.854
+	\cdot10^{-12}\,$ф/м.
+	\item[Магнитная проницаемость вакуума] $\mu_0=4\pi\cdot10^{-7}\,$Гн/м.
+	\item[Постоянная Планка] $h=6.6748\cdot10^{-34}\,$Дж$\cdot$с
+$=6.6748\cdot10^{-27}\,$эрг$\cdot$с.\\
+	$\hbar=h/2\pi=1.0545\cdot10^{-34}\,$Дж$\cdot$с.
+	\item[Постоянная тонкой структуры] $\alpha=e^2/(\hbar
+c)=7.2910\cdot10^{-3}$; $1/\alpha=137.039$.
+	\item[Комптоновская длина волны]
+$\lambda_0=h/(m_ec)=2.42621\cdot10^{-12}\,$м.
+	\item[Постоянная Ридберга]
+$R_\infty=\dfrac{m_ee^4}{4\pi\hbar^3c}=1.0973731\cdot10^7\,$м${}^{-1}$.
+	\item[Радиус Бора] $a_0=\hbar^2/(m_ee^2)=5.29187\cdot10^{-11}\,$м.
+	\item[Магнетон Бора] $\mu_B=9.2732\cdot10^{-24}\,$Дж$\cdot$Тл${}^{-1}$
+$=9.2732\cdot10^{-21}\,$эрг$\cdot$Гс${}^{-1}$.
+	\item[Нормальный объем газа] $V_0=22.414\,$м${}^3$/кмоль (л/моль).
+	\item[Универсальная газовая постоянная] $R=8.3143\,$Дж/(моль$\cdot$К)=\\
+	$=1.9858\,$кал/(моль$\cdot$К).
+	\item[Постоянная Больцмана] $k=R/N_A=1.3805\cdot10^{-23}\,$Дж/К.
+	\item[Постоянная Стефана--Больцмана]
+$\sigma=5.669\cdot10^{-8}\,$Вт/(м${}^2\cdot$К${}^4$).
+	\item[Постоянная Вина] $b=2.8978\cdot10{-3}\,$м$\cdot$К.
+	\item[Средний радиус Земли] 6371\,км.
+	\item[Масса Земли] $5.98\cdot10^{24}\,$кг.
+	\item[Радиус Солнца] $6.96\cdot10^8\,$км.
+	\item[Масса Солнца] $1.99\cdot10^{30}\,$кг.
+	\item[Среднее расстояние от Земли до Солнца] $1.496\cdot10^8\,$км.
+\end{description}
+
+\chapter*{Важнейшие формулы векторного анализа}
+\addcontentsline{toc}{chapter}{Важнейшие формулы векторного анализа}
+\markboth{Важнейшие формулы векторного анализа}{Важнейшие формулы векторного
+анализа}
+\begin{description}
+	\item[Скалярное произведение двух векторов]
+	$$\vec A\vec B=AB\cos(\widehat{\vec A\vec B})=A_xB_x+A_yB_y+A_zB_z.$$
+	\item[Векторное произведение двух векторов]
+	$$\vec A\times\vec B=-\vec B\times\vec A=\begin{vmatrix}
+	\veci&\vecj&\veck\\A_x&A_y&A_z\\B_x&B_y&B_z\end{vmatrix},\quad
+	|\vec A\times\vec B|=AB\sin(\widehat{\vec A\vec B}).$$
+	\item[Оператор <<набла>>]
+	$$\nabla=\veci\partder{}{x}+\vecj\partder{}{y}+\veck\partder{}{z}.$$
+	\item[Оператор Лапласа, $\Delta=\nabla^2$]\
+	\begin{description}
+		\item[\it декартовы координаты]
+		$$\Delta=\partder{}{x}+\partder{}{y}+\partder{}{z};$$
+		\item[\it сферические координаты ($R$, $\theta$, $\alpha$)]
+		$$\Delta=\rev{R^2}\partder{}{R}\left(R^2\partder{}{R}\right)+
+		\rev{R^2\sin\theta}\partder{}{\theta}\left(\sin\theta\partder{}{\theta}
+		\right)+\rev{R^2\sin^2\theta}\dpartder{}{\alpha};$$
+		\item[\it цилиндрические координаты ($R$, $\theta$, $z$)]
+		$$\Delta=\dpartder{}{R}+\rev{R}\partder{}{R}+
+		\rev{R^2}\dpartder{}{\theta}+\dpartder{}{z}.$$
+	\end{description}
+	\item[Градиент, дивергенция и ротор]
+	$$\grad\phi=\nabla\phi;\quad \diver\vec A=\nabla\vec A;\quad
+	\rot\vec A=\nabla\times\vec A.$$
+	\item[Теорема Остроградского--Гаусса \rm($V$~-- объем, охватываемый
+	поверхностью~$S$)]
+	$$\Oint_S\vec A\,d\vec S=\Int_V\diver\vec A\,dV.$$
+	\item[Теорема Стокса \rm($S$~-- поверхность, натянутая на замкнутый
+	контур~$L$)]
+	$$\Oint_L\vec A\,d\vec L=\Int_S\rot\vec A\,d\vec S.$$
+	\item[Теорема Грина]
+	$$\Int\left(\psi\partder{\phi}{n}-\phi\partder{\psi}{n}\right)\,dS=
+	\Int(\psi\Delta\phi-\phi\Delta\psi)\,dV$$
+	\item[Повторное дифференцирование]
+	$$\rot\grad\phi=\nabla\times\nabla\phi=0;$$
+	$$\diver\rot\vec A=\nabla(\nabla\times \vec A)=0;$$
+	$$\diver\grad\phi=\nabla(\nabla\phi)=\nabla^2\phi=\Delta\phi;$$
+	$$\rot\rot\vec A=\nabla\times[\nabla\times\vec A]=\grad\diver\vec A
+	-\Delta\vec A.$$
+\end{description}
+
+
+\chapter*{Связь между некоторыми единицами}
+\addcontentsline{toc}{chapter}{Связь между некоторыми единицами}\markboth{Связь между некоторыми единицами}{Связь между некоторыми единицами}
+\begin{description}
+	\item[Сила] $1\,\text{Н}=10^5\,\text{дин}=1/9.81\,\text{кгс}$.
+	\item[Работа, энергия]
+$1\,\text{Дж}=10^7\,\text{эрг}=0.239\,\text{кал}=2.78\cdot10^{-7}\,\text{
+кВт$\cdot$ч}$.
+	\item[Мощность]
+	$1\,\text{Вт}=10^7\,\text{Эрг/с}=0.102\,\text{кгс$\cdot$м/с}=1.36
+	\cdot10^{-3}\,\text{л.с.}$.
+	\item[Заряд]
+	$1\,\text{Кл}=3\cdot10^9\,\text{СГСЭ}=0.1\,\text{СГСМ}$.
+	\item[Напряженность]
+	$1\,\text{В/м}=3.34\cdot10^{-5}\,\text{СГСЭ}=10^6\,\text{СГСМ}$.
+	\item[Электрическое смещение]
+	$1\,\text{Кл/м}=3.77\cdot10^6\,\text{СГСЭ}=1.26\cdot10^{-4}\,\text{СГСМ}$.
+	\item[Потенциал]
+	$1\,\text{В}=3.34\cdot10^{-3}\,\text{СГСЭ}=10^8\,\text{СГСМ}$.
+	\item[Емкость]
+	$1\,\text{Ф}=8.99\cdot10^{11}\,\text{см}=10^{-9}\,\text{СГСМ}$.
+	\item[Сила тока]
+	$1\,\text{А}=3\cdot10^9\,\text{СГСЭ}=0.1\,\text{СГСМ}$.
+	\item[Сопротивление]
+	$1\,\text{Ом}=1.11\cdot10^{-12}\,\text{СГСЭ}=10^9\,\text{СГСМ}$.
+	\item[Магнитная индукция]
+	$1\,\text{Тл}=10^4\,\text{Гс}=3.34\cdot10^{-7}\,\text{СГСЭ}$.
+	\item[Магнитный поток]
+	$1\,\text{Вб}=10^8\,\text{Мкс}=3.34\cdot10^{-3}\,\text{СГСЭ}$.
+	\item[Напряженность магнитного поля]
+	$1\,\text{А/м}=1.26\cdot10^{-2}\,\text{Э}=3.77\cdot10^8\,\text{СГСЭ}=
+	10^{-2}\,\text{Ав/см}$.
+	\item[Индуктивность]
+	$1\,\text{Гн}=10^9\,\text{см}=1.11\cdot10^{-12}\,\text{СГСЭ}$.
+\end{description}

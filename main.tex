@@ -1,0 +1,53 @@
+\documentclass[a4paper,14pt,twoside]{extbook}
+%\usepackage{showkeys}
+%\usepackage{hyperref}
+\usepackage{./ed}
+\usepackage{./chapter}
+\usepackage[matrix,arrow,curve]{xy}
+\textwidth=170mm
+\oddsidemargin=-5.4mm
+\evensidemargin=-5.4mm
+\topmargin=-5.4mm
+\headheight=14pt
+\headsep=20pt
+\footskip=30pt
+\textheight=257mm
+\renewcommand{\baselinestretch}{1.25}
+\addtolength\textheight{-64pt} % вычитаем высоту колонтитулов
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\float}[2]{
+\sbox{\myfloat}{#2}
+\setlength{\myflt}{\wd\myfloat}
+\begin{wrapfigure}{#1}{\myflt}
+#2\end{wrapfigure}}
+\title{\bf Методические рекомендации по подготовке к ГАК\\\it для студентов
+специальности <<физика>>}
+\author{\it Емельянов Эдуард Владимирович\\\it Емельянова Ал\"ена Викторовна}
+\date{}
+\renewcommand{\caption}[1]{\hbox to\textwidth{\hfill #1\hfill}}
+\newcommand{\capt}[2]{\par\noindent\parbox{#1}{\noindent\hfill #2\hfill}}
+\newcommand{\nbox}[1]{\hbox to 0pt{\hss\fbox{#1}\hss}}
+\sloppy
+\raggedbottom
+\makeindex
+\begin{document}
+%\tableofcontents
+\beg
+\include{intro}
+\include{chap01}
+%\include{chap02}
+\include{chap03}
+\include{chap04}
+\include{chap05}
+%\include{chap06}
+\include{abbrs}
+\include{consts}
+\include{liter}
+%\include{adddd}
+\newpage
+\addcontentsline{toc}{chapter}{Предметный указатель}\markboth{Предметный
+указатель}{Предметный указатель}
+\input{main.ind}
+%\tirazh{1}
+%\back
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{extbook}
+\usepackage[14pt]{extsizes}
+%\usepackage{hyperref}
+\usepackage[matrix,arrow,curve]{xy}
+\usepackage{./ed}
+\author{\it Емельянов Эдуард Владимирович\\\it Емельянова Ал\"ена Викторовна}
+\usepackage{./chapter}
+\renewcommand{\thesection}{\arabic{section}}
+\title{\bf Методические рекомендации по подготовке к ГАК\\\it для студентов
+специальности <<физика>>}
+\date{}
+\renewcommand{\caption}[1]{\hbox to\textwidth{\hfill #1\hfill}}
+\newcommand{\capt}[2]{\\\parbox{#1}{\noindent\hfill #2\hfill}}
+\newcommand{\nbox}[1]{\hbox to 0pt{\hss\fbox{#1}\hss}}
+\sloppy
+\raggedbottom
+\headsep=1cm
+%\hoffset=1.5cm
+\topmargin=-1cm\textheight=26cm\oddsidemargin=1.5cm\evensidemargin=-.5cm
+\book{32}
+\begin{document}
+ \beg
+ \include{intro}
+ \include{chap01}
+ %\include{chap02}
+ \include{chap03}
+ \include{chap04}
+ \include{chap05}
+ %\include{chap06}
+ \include{abbrs}
+ \include{consts}
+ \include{liter}
+ \addcontentsline{toc}{chapter}{Предметный указатель}\markboth{Предметный}{указатель}
+ \input{main.ind}
+ \pagestyle{empty}
+ \newpage\
+%  \newpage\
+ \tirazh{1}\back
+\end{document}
