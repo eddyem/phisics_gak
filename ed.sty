@@ -1,11 +1,12 @@
 \usepackage[koi8-r]{inputenc}	% Классическая кодировка
-\usepackage[russian]{babel}	% Правила разбиения слов
+\usepackage[english,russian]{babel}	% Правила разбиения слов
 %\usepackage{floatflt}		% Плавающие картинки и таблицы
 \usepackage{wrapfig}		% Обтекаемые объекты
 \usepackage{multicol}		% Переключение между много- и одноколоночным режимами внутри страницы
 \usepackage{cite}		% Красивое оформление цитат
 \usepackage{xspace} % опциональный пробел в конце команды
 \usepackage{ifpdf}		% проверка pdflatex/latex
+\usepackage{hyperref}
 %\usepackage[warn]{mathtext}	% Русский в математических формулах
 \ifpdf
 	\usepackage[pdftex]{graphicx}
@@ -27,6 +28,16 @@
 \usepackage{mathtools} % usefull math definitions
 \usepackage{wasysym}		% Для астрономических символов типа знаков зодиака
 \usepackage{array}		% позволяет m{}, b{}, >{}, <{} и !{}
+\usepackage{cclicenses}
+
+\hypersetup{colorlinks,
+           citecolor=black,
+           filecolor=black,
+           linkcolor=black,
+           urlcolor=black,
+           bookmarksopen=true,
+           pdftex}
+
 
 \def\daterussian{% fix for iюня and iюля
   \def\today{\number\day~\ifcase\month\or
@@ -758,3 +769,5 @@
 \def\bblapr{}\def\bblmay{}\def\bbljun{}
 \def\bbljul{}\def\bblaug{}\def\bblsep{}
 \def\bbloct{}\def\bblnov{}\def\bbldec{}
+
+\selectlanguage{russian}

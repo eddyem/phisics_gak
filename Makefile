@@ -8,4 +8,5 @@ all: main.pdf
 # main-all.pdf
 
 clean:
-	rm -f *.aux *.fdb_latexmk *.fls *.idx *.ilg  *.log *.toc
+	rm -f *.aux *.fdb_latexmk *.fls *.idx *.ilg  *.log *.toc *.out
+
